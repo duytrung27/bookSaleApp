@@ -19,3 +19,9 @@
     @apply font-spaceGrotesk;
   }
 }
+
+@layer components {
+  .container {
+    @apply max-w-7xl m-auto px-5 xl:px-0;
+  }
+}

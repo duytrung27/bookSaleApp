@@ -27,7 +27,6 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/app/store/features/book.slice.js"
   ],
   "exclude": [
     "node_modules"

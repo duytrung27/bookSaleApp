@@ -1,5 +1,6 @@
 import "./globals.css";
 import { ReduxProvider } from "./utils/provider";
+import Nav from "./componets/Nav";
 
 export const metadata = {
   title: "Book sale",
@@ -10,7 +11,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <ReduxProvider>
-        <body>{children}</body>
+        <body>
+          <Nav />
+          {children}
+        </body>
       </ReduxProvider>
     </html>
   );

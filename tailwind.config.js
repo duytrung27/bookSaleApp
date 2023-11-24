@@ -17,6 +17,12 @@ module.exports = {
       fontFamily: {
         spaceGrotesk: ["Space Grotesk", "sans-serif"],
       },
+      backgroundColor: {
+        primary: "#FF971D",
+      },
+      textColor: {
+        primary: "#FF971D",
+      },
     },
   },
   plugins: [require("flowbite/plugin")],

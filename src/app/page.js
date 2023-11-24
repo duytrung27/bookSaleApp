@@ -1,9 +1,10 @@
 "use client";
-import { useSelector } from "react-redux";
+import DashboardHeader from "./componets/DashboardHeader";
 
 export default function Dashboard() {
-  const reducer = useSelector((state) => state.book);
-  console.log("reducer :>> ", reducer);
-
-  return <div>Hello eveybody</div>;
+  return (
+    <main>
+      <DashboardHeader />
+    </main>
+  );
 }
