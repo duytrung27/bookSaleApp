@@ -1,4 +1,5 @@
 import "./globals.css";
+import "animate.css";
 import { ReduxProvider } from "./utils/provider";
 import Nav from "./componets/Nav";
 
