@@ -32,9 +32,10 @@ const NewBooks = ({ bookList = [], isLoading = false }) => {
                 slidesPerView: 3,
               },
             }}
+            className="py-5 px-1"
           >
             {bookList.map((book, idx) => (
-              <SwiperSlide key={idx} className="shadow-lg rounded-md my-2">
+              <SwiperSlide key={idx} className="shadow-lg rounded-md">
                 <li
                   className="cursor-pointer grid grid-cols-2 gap-5 pr-2 hover:opacity-75"
                   key={idx}

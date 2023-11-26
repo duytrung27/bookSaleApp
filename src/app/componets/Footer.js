@@ -5,7 +5,7 @@ function Footer() {
   return (
     <div className="bg-primary overflow-x-hidden font-synonym">
       <div className="px-10 xl:px-0 xl:max-w-7xl m-auto">
-        <div className="md:flex md:justify-between pt-5 xl:pt-[60px] text-white border-b-[1px] border-white">
+        <div className="md:flex md:justify-between pt-10 xl:pt-[60px] text-white border-b-[1px] border-white">
           <div>
             <div className="text-lg font-normal capitalize leading-7">
               Read and add your ingight

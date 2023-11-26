@@ -1,6 +1,7 @@
 import { ReduxProvider } from "./utils/provider";
 import Nav from "./componets/Nav";
 import Footer from "./componets/Footer";
+import ScrollToTop from "./componets/ScrollToTop";
 
 import "animate.css";
 import "swiper/css";
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
           <Nav />
           {children}
           <Footer />
+          <ScrollToTop />
         </body>
       </ReduxProvider>
     </html>
