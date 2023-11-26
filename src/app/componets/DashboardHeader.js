@@ -6,9 +6,9 @@ function DashboardHeader() {
   return (
     <div className="h-[550px] sm:h-[613px] relative">
       <div className="md:grid md:grid-cols-4 xl:grid-cols-2 absolute h-full w-full">
-        <div className="hidden md:block w-full h-full md:col-span-1 bg-white" />
+        <div className="hidden md:block w-full h-[550px] sm:h-[613px] md:col-span-1 bg-white" />
         <Image
-          className="h-full object-cover md:col-span-3 xl:col-span-1"
+          className="h-[550px] sm:h-[613px] object-cover md:col-span-3 xl:col-span-1"
           src="/images/db_bg.jpeg"
           alt="db_bg"
           width={1000}

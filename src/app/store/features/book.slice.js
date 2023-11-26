@@ -1,26 +1,91 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosClient from "../../utils/config";
+import { convertBookData } from "../../utils/helpers";
 
 const initialState = {
-  data: {},
-  isLoading: false,
-  isSuccess: false,
-  isError: false,
-  error: null,
+  // popular
+  popularList: [],
+  isLoadingPopular: false,
+
+  // recommend
+  recommendList: [],
+  isLoadingRecommened: false,
+
+  // new
+  newBooksList: [],
+  isLoadingNewBooks: false,
+
+  // like
+  likeBooksList: [],
+  isLoadingLikeBooks: false,
 };
 
-export const loginUser = createAsyncThunk(
-  "book/searchBook",
-  async (user, thunkAPI) => {
+export const getPopularBooks = createAsyncThunk(
+  "book/popular",
+  async (payload, thunkAPI) => {
     try {
-      const { username, password } = user;
-      let response = await axiosClient.post(`/login`, {
-        username,
-        password,
-      });
-      let data = await response.data;
-      if (data) {
-        return data;
+      let offset = 0;
+      let type = "love";
+      if (payload) {
+        offset = payload.offset;
+        type = payload.type;
+      }
+
+      const response = await axiosClient.get(
+        `/subjects/${type}.json?offset=${offset}`
+      );
+      const data = await response.data;
+      if (data.works) {
+        const books = data.works.map((book) => convertBookData(book));
+        return books;
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const getRecommendBooks = createAsyncThunk(
+  "book/recommend",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axiosClient.get(`/subjects/trend.json?`);
+      const data = await response.data;
+      if (data.works) {
+        const books = data.works.map((book) => convertBookData(book));
+        return books;
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const getNewBooks = createAsyncThunk(
+  "book/newStory",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axiosClient.get(`/subjects/new.json?`);
+      const data = await response.data;
+      if (data.works) {
+        const books = data.works.map((book) => convertBookData(book));
+        return books;
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const getLikeBooks = createAsyncThunk(
+  "book/mostLike",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axiosClient.get(`/subjects/like.json?`);
+      const data = await response.data;
+      if (data.works) {
+        const books = data.works.map((book) => convertBookData(book));
+        return books;
       }
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -31,24 +96,53 @@ export const loginUser = createAsyncThunk(
 export const bookSlice = createSlice({
   name: "book",
   initialState,
-  reducers: {
-    clearState: () => initialState,
-  },
   extraReducers: (builder) => {
-    builder.addCase(loginUser.pending, (state) => {
-      state.isLoading = true;
+    // POPULAR BOOKS
+    builder.addCase(getPopularBooks.pending, (state) => {
+      state.isLoadingPopular = true;
     });
-    builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.isError = false;
-      state.isSuccess = true;
-      state.data = action.payload;
+    builder.addCase(getPopularBooks.fulfilled, (state, action) => {
+      state.isLoadingPopular = false;
+      state.popularList = action.payload;
     });
-    builder.addCase(loginUser.rejected, (state, action) => {
-      state.isLoading = false;
-      state.isError = true;
-      state.isSuccess = false;
-      state.error = action.payload.error;
+    builder.addCase(getPopularBooks.rejected, (state) => {
+      state.isLoadingPopular = false;
+    });
+
+    // RECOMMEND BOOKS
+    builder.addCase(getRecommendBooks.pending, (state) => {
+      state.isLoadingRecommened = true;
+    });
+    builder.addCase(getRecommendBooks.fulfilled, (state, action) => {
+      state.isLoadingRecommened = false;
+      state.recommendList = action.payload;
+    });
+    builder.addCase(getRecommendBooks.rejected, (state) => {
+      state.isLoadingRecommened = false;
+    });
+
+    // NEW BOOKS
+    builder.addCase(getNewBooks.pending, (state) => {
+      state.isLoadingNewBooks = true;
+    });
+    builder.addCase(getNewBooks.fulfilled, (state, action) => {
+      state.isLoadingNewBooks = false;
+      state.newBooksList = action.payload;
+    });
+    builder.addCase(getNewBooks.rejected, (state) => {
+      state.isLoadingNewBooks = false;
+    });
+
+    // LIKE BOOKS
+    builder.addCase(getLikeBooks.pending, (state) => {
+      state.isLoadingLikeBooks = true;
+    });
+    builder.addCase(getLikeBooks.fulfilled, (state, action) => {
+      state.isLoadingLikeBooks = false;
+      state.likeBooksList = action.payload;
+    });
+    builder.addCase(getLikeBooks.rejected, (state) => {
+      state.isLoadingLikeBooks = false;
     });
   },
 });

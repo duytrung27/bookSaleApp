@@ -61,14 +61,12 @@ function Nav() {
         <div className="cursor-pointer transition duration-200 hover:scale-105 font-semibold bg-white shadow-md text-[14px] md:text-[18px] px-6 md:px-10 py-1 rounded-3xl">
           Login
         </div>
-        {!openMenu && (
-          <RxHamburgerMenu
-            color="white"
-            className="md:hidden"
-            size={30}
-            onClick={() => setOpenMenu(true)}
-          />
-        )}
+        <RxHamburgerMenu
+          color="white"
+          className={`${!openMenu ? "visible" : "invisible"} md:hidden`}
+          size={30}
+          onClick={() => setOpenMenu(true)}
+        />
       </div>
       {openMenu && (
         <div className="relative md:hidden">
@@ -84,7 +82,7 @@ function Nav() {
               <li
                 key={i}
                 className={`p-5 border-b-[1px] border-gray-200 ${
-                  activeItem === item.active ? "nav-active" : ""
+                  activeItem === item.active ? "font-bold" : ""
                 }`}
                 onClick={() => {
                   setOpenMenu(false);

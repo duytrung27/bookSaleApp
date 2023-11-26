@@ -1,10 +1,13 @@
-import "./globals.css";
-import "animate.css";
 import { ReduxProvider } from "./utils/provider";
 import Nav from "./componets/Nav";
+import Footer from "./componets/Footer";
+
+import "animate.css";
+import "swiper/css";
+import "./globals.css";
 
 export const metadata = {
-  title: "Book sale",
+  title: "HD Book store",
   description: "Read and add your insight",
 };
 
@@ -15,6 +18,7 @@ export default function RootLayout({ children }) {
         <body>
           <Nav />
           {children}
+          <Footer />
         </body>
       </ReduxProvider>
     </html>

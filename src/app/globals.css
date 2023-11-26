@@ -16,12 +16,18 @@
 
 @layer base {
   body {
-    @apply font-spaceGrotesk;
+    @apply font-spaceGrotesk overflow-x-hidden;
   }
 }
 
 @layer components {
   .container {
     @apply max-w-7xl m-auto px-5 xl:px-0;
+  }
+  .side-menu-active {
+    @apply text-primary rounded-[5px] bg-white py-1;
+  }
+  .cover-card {
+    @apply bg-white rounded-sm shadow-md p-8;
   }
 }

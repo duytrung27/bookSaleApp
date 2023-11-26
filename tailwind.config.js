@@ -19,6 +19,7 @@ module.exports = {
       },
       backgroundColor: {
         primary: "#FF971D",
+        mainBg: "#DEDEDE",
       },
       textColor: {
         primary: "#FF971D",
