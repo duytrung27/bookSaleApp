@@ -2,14 +2,28 @@ import React from "react";
 import ImageLoading from "./ImageLoading";
 import ListSkeletonBook from "./ListSkeletonBook";
 import { FaRegShareFromSquare } from "react-icons/fa6";
+import { Dropdown } from "flowbite-react";
+import { genresItems } from "../utils/constants";
 
-const PopularBooks = ({ bookList, isLoading }) => {
+const PopularBooks = ({ bookList, isLoading, genres = "", onChangeGenres }) => {
+  const label = genresItems.find((el) => el.sort === genres);
+
   return (
     <div>
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <h2 className="text-[25px] font-bold">Popular</h2>
         <p className="text-primary text-[14px] cursor-pointer">View all</p>
       </div>
+      <div className="my-5 lg:hidden">
+        <Dropdown label={label.name} color="light">
+          {genresItems.map((item, idx) => (
+            <Dropdown.Item onClick={() => onChangeGenres(item.sort)} key={idx}>
+              {item.name}
+            </Dropdown.Item>
+          ))}
+        </Dropdown>
+      </div>
+
       {isLoading ? (
         <ListSkeletonBook />
       ) : (

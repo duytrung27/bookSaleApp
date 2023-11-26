@@ -9,9 +9,9 @@ const ListSkeletonBook = ({ items = 6 }) => {
           key={idx}
         >
           <div className="col-span-1 h-[210px]">
-            <div class="flex items-center justify-center h-[210px] bg-gray-300 rounded-l-md dark:bg-gray-700">
+            <div className="flex items-center justify-center h-[210px] bg-gray-300 rounded-l-md dark:bg-gray-700">
               <svg
-                class="w-10 h-10 text-gray-200 dark:text-gray-600"
+                className="w-10 h-10 text-gray-200 dark:text-gray-600"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"

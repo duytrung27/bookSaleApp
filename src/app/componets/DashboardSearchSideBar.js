@@ -1,36 +1,8 @@
 import React, { useState } from "react";
 import RevealOnScroll from "./RevealOnScroll";
+import { genresItems } from "../utils/constants";
 
-const genresItems = [
-  {
-    name: "All Genres",
-    sort: "",
-  },
-  {
-    name: "Business",
-    sort: "business",
-  },
-  {
-    name: "Science",
-    sort: "science",
-  },
-  {
-    name: "Fiction",
-    sort: "fiction",
-  },
-  {
-    name: "Philosophy",
-    sort: "philosophy",
-  },
-  {
-    name: "Biography",
-    sort: "biography",
-  },
-];
-
-function DashboardSearchSideBar({ onFilter, isLoading }) {
-  const [sort, setSort] = useState("");
-
+function DashboardSearchSideBar({ onFilter, isLoading, genres }) {
   return (
     <div className="sticky top-0">
       <RevealOnScroll animate="animate__rotateInDownLeft">
@@ -41,12 +13,13 @@ function DashboardSearchSideBar({ onFilter, isLoading }) {
               <li
                 className={`cursor-pointer text-base px-3 w-[70%] ${
                   isLoading ? "text-gray-400" : ""
-                }  ${sort === item.sort ? "side-menu-active" : ""} `}
+                }  ${genres === item.sort ? "side-menu-active" : ""} `}
                 key={idx}
                 onClick={() => {
                   if (!isLoading) {
-                    setSort(item.sort);
-                    if (sort !== item.sort) onFilter(item.sort);
+                    if (genres !== item.sort) {
+                      onFilter(item.sort);
+                    }
                   }
                 }}
               >

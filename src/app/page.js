@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DashboardHeader from "./componets/DashboardHeader";
 import DashboardSearchSideBar from "./componets/DashboardSearchSideBar";
@@ -31,6 +31,8 @@ export default function Dashboard() {
     isLoadingLikeBooks,
   } = useSelector((state) => state.book);
 
+  const [activeGenres, setActiveGenres] = useState("");
+
   useEffect(() => {
     dispatch(getPopularBooks());
     dispatch(getRecommendBooks());
@@ -38,9 +40,10 @@ export default function Dashboard() {
     dispatch(getLikeBooks());
   }, [dispatch]);
 
-  const onFilterPopularBook = (type) => {
+  const onFilterPopularBook = (genres) => {
+    setActiveGenres(genres);
     popularRef.current?.scrollIntoView({ behavior: "smooth" });
-    dispatch(getPopularBooks(type ? { type, offset: 0 } : ""));
+    dispatch(getPopularBooks(genres ? { type: genres, offset: 0 } : ""));
   };
 
   return (
@@ -50,6 +53,7 @@ export default function Dashboard() {
         <div className="lg:grid grid-cols-5 container py-[60px]">
           <div className="hidden lg:block col-span-1 relative">
             <DashboardSearchSideBar
+              genres={activeGenres}
               onFilter={onFilterPopularBook}
               isLoading={isLoadingPopular}
             />
@@ -59,6 +63,8 @@ export default function Dashboard() {
               <PopularBooks
                 bookList={popularList}
                 isLoading={isLoadingPopular}
+                genres={activeGenres}
+                onChangeGenres={onFilterPopularBook}
               />
               <RecommendBooks
                 bookList={recommendList}

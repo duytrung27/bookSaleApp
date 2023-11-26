@@ -1,8 +1,26 @@
-export const mockBookList = [
+export const genresItems = [
   {
-    url: "/image/bookImg.jpeg",
-    title: "A heart so fierce and broken",
-    author: "Sue Rainsford",
-    rating: 4.5,
+    name: "All Genres",
+    sort: "",
+  },
+  {
+    name: "Business",
+    sort: "business",
+  },
+  {
+    name: "Science",
+    sort: "science",
+  },
+  {
+    name: "Fiction",
+    sort: "fiction",
+  },
+  {
+    name: "Philosophy",
+    sort: "philosophy",
+  },
+  {
+    name: "Biography",
+    sort: "biography",
   },
 ];
