@@ -24,3 +24,5 @@ export const genresItems = [
     sort: "biography",
   },
 ];
+
+export const STANDARD_OFFSET = 12;

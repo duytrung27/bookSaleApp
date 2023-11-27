@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import RevealOnScroll from "./RevealOnScroll";
 import { genresItems } from "../utils/constants";
 
-function DashboardSearchSideBar({ onFilter, isLoading, genres }) {
+function SearchSideBar({ onFilter, isLoading, genres }) {
   return (
     <div className="sticky top-0">
       <RevealOnScroll animate="animate__rotateInDownLeft">
@@ -33,4 +33,4 @@ function DashboardSearchSideBar({ onFilter, isLoading, genres }) {
   );
 }
 
-export default DashboardSearchSideBar;
+export default SearchSideBar;

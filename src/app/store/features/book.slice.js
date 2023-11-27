@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosClient from "../../utils/config";
 import { convertBookData } from "../../utils/helpers";
+import { STANDARD_OFFSET } from "../../utils/constants";
 
 const initialState = {
   // popular
   popularList: [],
   isLoadingPopular: false,
-
+  totalPage: 0,
   // recommend
   recommendList: [],
   isLoadingRecommened: false,
@@ -28,7 +29,7 @@ export const getPopularBooks = createAsyncThunk(
       let type = "love";
       if (payload) {
         offset = payload.offset;
-        type = payload.type;
+        type = payload.type ? payload.type : type;
       }
 
       const response = await axiosClient.get(
@@ -37,7 +38,17 @@ export const getPopularBooks = createAsyncThunk(
       const data = await response.data;
       if (data.works) {
         const books = data.works.map((book) => convertBookData(book));
-        return books;
+
+        // Caculate total page base on work_count
+        let totalPage = data.work_count / STANDARD_OFFSET;
+        totalPage = Number.isInteger(totalPage)
+          ? totalPage
+          : parseInt(totalPage) + 1;
+
+        return {
+          data: books,
+          totalPage,
+        };
       }
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -100,10 +111,12 @@ export const bookSlice = createSlice({
     // POPULAR BOOKS
     builder.addCase(getPopularBooks.pending, (state) => {
       state.isLoadingPopular = true;
+      state.popularList = [];
     });
     builder.addCase(getPopularBooks.fulfilled, (state, action) => {
       state.isLoadingPopular = false;
-      state.popularList = action.payload;
+      state.popularList = action.payload.data;
+      state.totalPage = action.payload.totalPage;
     });
     builder.addCase(getPopularBooks.rejected, (state) => {
       state.isLoadingPopular = false;

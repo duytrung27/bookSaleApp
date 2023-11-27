@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DashboardHeader from "./componets/DashboardHeader";
-import DashboardSearchSideBar from "./componets/DashboardSearchSideBar";
+import SearchSideBar from "./componets/SearchSideBar";
 import PopularBooks from "./componets/PopularBooks";
 import RecommendBooks from "./componets/RecommendBooks";
 import MostLikeBooks from "./componets/MostLikeBooks";
@@ -52,7 +52,7 @@ export default function Dashboard() {
       <div className="bg-neutral-100 h-auto w-screen">
         <div className="lg:grid grid-cols-5 container py-[60px]">
           <div className="hidden lg:block col-span-1 relative">
-            <DashboardSearchSideBar
+            <SearchSideBar
               genres={activeGenres}
               onFilter={onFilterPopularBook}
               isLoading={isLoadingPopular}
@@ -72,7 +72,7 @@ export default function Dashboard() {
               />
             </div>
             <div className="mt-20 object-contain w-full rounded-md">
-              <RevealOnScroll animate="animate__bounceInDown">
+              <RevealOnScroll animate="animate__fadeInTopRight">
                 <Image
                   src="/images/poster.jpeg"
                   alt="img"

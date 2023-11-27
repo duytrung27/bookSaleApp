@@ -4,15 +4,44 @@ import ListSkeletonBook from "./ListSkeletonBook";
 import { FaRegShareFromSquare } from "react-icons/fa6";
 import { Dropdown } from "flowbite-react";
 import { genresItems } from "../utils/constants";
+import { useRouter } from "next/navigation";
 
-const PopularBooks = ({ bookList, isLoading, genres = "", onChangeGenres }) => {
+const PopularBooks = ({
+  bookList,
+  isLoading,
+  genres = "",
+  onChangeGenres,
+  slice = true,
+  placeHolderItem = 6,
+  isShowViewMore = true,
+}) => {
+  const navigate = useRouter();
+
   const label = genresItems.find((el) => el.sort === genres);
 
+  const onNavigate = () => {
+    navigate.push(`popular?genres=${genres}`);
+  };
+
   return (
-    <div>
+    <div className="min-h-[300px]">
       <div className="flex justify-between items-center">
-        <h2 className="text-[25px] font-bold">Popular</h2>
-        <p className="text-primary text-[14px] cursor-pointer">View all</p>
+        <h2
+          onClick={onNavigate}
+          className="cursor-pointer text-[25px] font-bold"
+        >
+          Popular
+        </h2>
+        {isShowViewMore ? (
+          <p
+            onClick={onNavigate}
+            className="text-primary text-[14px] cursor-pointer"
+          >
+            View all
+          </p>
+        ) : (
+          <React.Fragment />
+        )}
       </div>
       <div className="my-5 lg:hidden">
         <Dropdown label={label.name} color="light">
@@ -25,15 +54,15 @@ const PopularBooks = ({ bookList, isLoading, genres = "", onChangeGenres }) => {
       </div>
 
       {isLoading ? (
-        <ListSkeletonBook />
+        <ListSkeletonBook items={placeHolderItem} />
       ) : (
         <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {bookList.slice(0, 6).map((book, idx) => (
+          {bookList.slice(0, slice ? 6 : 12).map((book, idx) => (
             <li
               className="cursor-pointer grid grid-cols-2 gap-5 shadow-lg rounded-md pr-2 hover:opacity-75"
               key={idx}
             >
-              <div className="col-span-1 h-[210px]">
+              <div className="col-span-1 h-[210px] shadow-md">
                 <ImageLoading
                   className="w-full h-[210px] object-cover rounded-l-md"
                   src={book.image}

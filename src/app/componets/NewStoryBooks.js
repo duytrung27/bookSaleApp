@@ -16,7 +16,7 @@ const NewStoryBooks = ({ bookList, isLoading }) => {
               className="cursor-pointer grid grid-cols-2 gap-5 shadow-lg rounded-md pr-2 hover:opacity-75"
               key={idx}
             >
-              <div className="col-span-1 h-[210px]">
+              <div className="col-span-1 h-[210px] shadow-md">
                 <ImageLoading
                   className="w-full h-[210px] object-cover rounded-l-md"
                   src={book.image}
