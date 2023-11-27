@@ -1,10 +1,6 @@
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import SearchBook from "./SearchBook";
 
-function PopularHeader() {
-  const router = useRouter();
-
+function SearchingHeader() {
   return (
     <div className="h-[550px] sm:h-[613px] relative">
       <div className="md:grid md:grid-cols-4 xl:grid-cols-2 absolute h-full w-full">
@@ -22,18 +18,11 @@ function PopularHeader() {
           Read and add <br /> your insight
         </h1>
         <h2 className="z-10 capitalize text-center text-[16px] sm:text-xl mt-3">
-          Find popular books
+          Search books by name and author
         </h2>
-        <div className="mt-5 z-10">
-          <SearchBook
-            onSubmit={(book) => {
-              router.push(`/search?word=${book}`);
-            }}
-          />
-        </div>
       </div>
     </div>
   );
 }
 
-export default PopularHeader;
+export default SearchingHeader;

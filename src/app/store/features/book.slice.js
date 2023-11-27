@@ -160,5 +160,4 @@ export const bookSlice = createSlice({
   },
 });
 
-export const { clearState } = bookSlice.actions;
 export default bookSlice.reducer;

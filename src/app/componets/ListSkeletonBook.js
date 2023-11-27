@@ -1,8 +1,14 @@
 import React from "react";
 
-const ListSkeletonBook = ({ items = 6 }) => {
+const ListSkeletonBook = ({ items = 6, isShowFull = false }) => {
   return (
-    <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <ul
+      className={`mt-6 grid grid-cols-1 ${
+        isShowFull
+          ? "sm:grid-cols-3 md:grid-cols-4"
+          : "sm:grid-cols-2 md:grid-cols-3"
+      } gap-8`}
+    >
       {Array.from(Array(items).keys()).map((_, idx) => (
         <li
           className="cursor-pointer grid grid-cols-2 gap-5 shadow-lg rounded-md pr-2"

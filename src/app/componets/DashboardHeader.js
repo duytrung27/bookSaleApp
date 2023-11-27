@@ -1,8 +1,12 @@
 import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 import RevealOnScroll from "./RevealOnScroll";
+import SearchBook from "./SearchBook";
+import { useRouter } from "next/navigation";
 
 function DashboardHeader() {
+  const router = useRouter();
+
   return (
     <div className="h-[550px] sm:h-[613px] relative">
       <div className="md:grid md:grid-cols-4 xl:grid-cols-2 absolute h-full w-full">
@@ -23,20 +27,13 @@ function DashboardHeader() {
           <h2 className="z-10 capitalize text-center text-[16px] sm:text-xl mt-3">
             Find your favorite book and read it here for free
           </h2>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              console.log("object");
-            }}
-            className="z-10 flex items-center mt-5 rounded-[4px] shadow-md bg-neutral-100 max-w-[400px]"
-          >
-            <CiSearch color="black" size={20} className="ml-3" />
-            <input
-              type="text"
-              placeholder="Search Book"
-              className="w-full text-black bg-transparent border-none focus:ring-transparent"
+          <div className="mt-5">
+            <SearchBook
+              onSubmit={(book) => {
+                router.push(`/search?word=${book}`);
+              }}
             />
-          </form>
+          </div>
         </RevealOnScroll>
       </div>
     </div>
