@@ -74,12 +74,20 @@ const BookCard = ({ book, className = "" }) => {
               by <span className="font-bold">{book.author}</span>
             </p>
             <p className="font-semibold my-2">{book.pulishYear}</p>
-            <FaRegShareFromSquare
-              size={18}
-              className="mb-2 cursor-pointer"
-              color="#FF971D"
-              onClick={() => setOpenModal(true)}
-            />
+            <div className="flex">
+              <FaRegShareFromSquare
+                size={18}
+                className="mb-2 cursor-pointer"
+                color="#FF971D"
+                onClick={() => setOpenModal(true)}
+              />
+              <p
+                onClick={() => setOpenModal(true)}
+                className="ml-1 text-primary text-[14px] cursor-pointer"
+              >
+                Share
+              </p>
+            </div>
           </div>
         </div>
       </li>
