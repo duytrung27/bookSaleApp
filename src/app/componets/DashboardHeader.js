@@ -1,8 +1,7 @@
 import Image from "next/image";
-import { CiSearch } from "react-icons/ci";
+import { useRouter } from "next/navigation";
 import RevealOnScroll from "./RevealOnScroll";
 import SearchBook from "./SearchBook";
-import { useRouter } from "next/navigation";
 
 function DashboardHeader() {
   const router = useRouter();

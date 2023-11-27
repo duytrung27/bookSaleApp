@@ -1,9 +1,11 @@
-import { ReduxProvider } from "./utils/provider";
-import Nav from "./componets/Nav";
+import { ToastContainer } from "react-toastify";
 import Footer from "./componets/Footer";
+import Nav from "./componets/Nav";
 import ScrollToTop from "./componets/ScrollToTop";
+import { ReduxProvider } from "./utils/provider";
 
 import "animate.css";
+import "react-toastify/dist/ReactToastify.css";
 import "swiper/css";
 import "./globals.css";
 
@@ -21,6 +23,7 @@ export default function RootLayout({ children }) {
           {children}
           <Footer />
           <ScrollToTop />
+          <ToastContainer />
         </body>
       </ReduxProvider>
     </html>
