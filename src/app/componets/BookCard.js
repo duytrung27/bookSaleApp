@@ -1,16 +1,39 @@
+import { Modal } from "flowbite-react";
 import Link from "next/link";
+import { useState } from "react";
 import { FaRegShareFromSquare } from "react-icons/fa6";
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  LineIcon,
+  LineShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  OKIcon,
+  OKShareButton,
+  PocketIcon,
+  PocketShareButton,
+  TwitterShareButton,
+  XIcon,
+} from "react-share";
 import ImageLoading from "./ImageLoading";
+import ShareModal from "./ShareModal";
 
 const BookCard = ({ book, className = "" }) => {
+  const [openModal, setOpenModal] = useState(false);
   const id = book.id.replaceAll("/works/", "");
+  const shareUrl = window.location.origin + `/book/${id}?author=${book.author}`;
+
+  function onCloseModal() {
+    setOpenModal(false);
+  }
 
   return (
     <div>
       <li
         className={`grid grid-cols-2 gap-5 shadow-lg rounded-md pr-2 ${className}`}
       >
-        <Link href={`/book/${id}?author=${book.author}`} prefetch={true}>
+        <Link href={`/book/${id}?author=${book.author}`}>
           <div className="relative cursor-pointer hover:opacity-75 col-span-1 h-[210px] shadow-md">
             <div className="absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4">
               <svg
@@ -55,10 +78,17 @@ const BookCard = ({ book, className = "" }) => {
               size={18}
               className="mb-2 cursor-pointer"
               color="#FF971D"
+              onClick={() => setOpenModal(true)}
             />
           </div>
         </div>
       </li>
+      <ShareModal
+        shareUrl={shareUrl}
+        openModal={openModal}
+        onCloseModal={onCloseModal}
+        title={book?.title}
+      />
     </div>
   );
 };

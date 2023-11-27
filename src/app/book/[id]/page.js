@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BookDetailHeader from "../../componets/BookDetailHeader";
 import ImageLoading from "../../componets/ImageLoading";
@@ -9,14 +9,20 @@ import { getBookDetail } from "../../store/features/book-detail.slice";
 import { getSearcBook } from "../../store/features/search.slice";
 import BookCard from "../../componets/BookCard";
 import BookDetailSkeleton from "../../componets/BookDetailSkeleton";
+import { FaRegShareFromSquare } from "react-icons/fa6";
+import ShareModal from "../../componets/ShareModal";
 
 const BookDetailPage = ({ params }) => {
   const dispatch = useDispatch();
   const query = useSearchParams();
   const author = query.get("author") || "unknow";
 
-  const { bookData } = useSelector((state) => state.detail);
+  const { bookData, isLoading } = useSelector((state) => state.detail);
   const sameSerupa = useSelector((state) => state.search);
+
+  const [openModal, setOpenModal] = useState(false);
+
+  console.log("window.location.href :>> ", window.location.href);
 
   useEffect(() => {
     dispatch(getBookDetail(params.id));
@@ -24,9 +30,9 @@ const BookDetailPage = ({ params }) => {
   }, [dispatch, params, author]);
 
   return (
-    <main>
+    <main className="relative">
       <BookDetailHeader />
-      {sameSerupa.isLoading ? (
+      {isLoading ? (
         <BookDetailSkeleton />
       ) : (
         <div className="bg-mainBg min-h-[400px]">
@@ -77,6 +83,20 @@ const BookDetailPage = ({ params }) => {
                         {bookData?.subjectPlaces}
                       </span>
                     </h4>
+                    <div className="flex w-auto">
+                      <FaRegShareFromSquare
+                        size={22}
+                        className="mb-2 cursor-pointer"
+                        color="#FF971D"
+                        onClick={() => setOpenModal(true)}
+                      />
+                      <p
+                        onClick={() => setOpenModal(true)}
+                        className="ml-3 text-primary cursor-pointer"
+                      >
+                        Share this book
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -105,6 +125,12 @@ const BookDetailPage = ({ params }) => {
           </div>
         </div>
       )}
+      <ShareModal
+        shareUrl={window.location.href}
+        openModal={openModal}
+        onCloseModal={() => setOpenModal(!openModal)}
+        title={bookData?.title}
+      />
     </main>
   );
 };
