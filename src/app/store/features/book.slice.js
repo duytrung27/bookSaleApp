@@ -28,8 +28,8 @@ export const getPopularBooks = createAsyncThunk(
       let offset = 0;
       let type = "love";
       if (payload) {
-        offset = payload.offset;
-        type = payload.type ? payload.type : type;
+        offset = payload.offset || 0;
+        type = payload.type || type;
       }
 
       const response = await axiosClient.get(

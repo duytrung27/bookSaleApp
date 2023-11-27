@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ImageLoading from "./ImageLoading";
 import ListSkeletonBook from "./ListSkeletonBook";
 import { FaRegShareFromSquare } from "react-icons/fa6";
@@ -16,11 +16,16 @@ const PopularBooks = ({
   isShowViewMore = true,
 }) => {
   const navigate = useRouter();
+  const [label, setLabel] = useState("");
 
-  const label = genresItems.find((el) => el.sort === genres);
+  useEffect(() => {
+    const label = genresItems.find((el) => el.sort === genres);
+    if (label === undefined) navigate.push("/404");
+    setLabel(label);
+  }, [genres, navigate]);
 
   const onNavigate = () => {
-    navigate.push(`popular?genres=${genres}`);
+    navigate.push(genres ? `popular?genres=${genres}` : "popular");
   };
 
   return (
@@ -44,7 +49,7 @@ const PopularBooks = ({
         )}
       </div>
       <div className="my-5 lg:hidden">
-        <Dropdown label={label.name} color="light">
+        <Dropdown label={label?.name} color="light">
           {genresItems.map((item, idx) => (
             <Dropdown.Item onClick={() => onChangeGenres(item.sort)} key={idx}>
               {item.name}
