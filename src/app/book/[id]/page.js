@@ -22,8 +22,6 @@ const BookDetailPage = ({ params }) => {
 
   const [openModal, setOpenModal] = useState(false);
 
-  console.log("window.location.href :>> ", window.location.href);
-
   useEffect(() => {
     dispatch(getBookDetail(params.id));
     dispatch(getSearcBook({ word: author }));
@@ -32,7 +30,7 @@ const BookDetailPage = ({ params }) => {
   return (
     <main className="relative">
       <BookDetailHeader />
-      {isLoading ? (
+      {sameSerupa.isLoading ? (
         <BookDetailSkeleton />
       ) : (
         <div className="bg-mainBg min-h-[400px]">
